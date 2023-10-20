@@ -1,14 +1,12 @@
 package com.demo1.demo1.repository;
 
-import com.demo1.demo1.domain.Term;
-import com.demo1.demo1.domain.TermDtl;
-import com.demo1.demo1.service.TermService;
+import com.demo1.domain.Term;
+import com.demo1.domain.TermDtl;
+import com.demo1.service.TermService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.sql.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @Transactional
 public class JdbcTermRepositoryTest {
 
-    @Autowired JdbcTermRepository repository;
+    @Autowired
+    JdbcTermRepository repository;
     @Autowired TermService termService;
 
 

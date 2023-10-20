@@ -16,10 +16,9 @@ spring:
       connection-timeout: 30000
       connection-test-query: select * from information_schema.tables limit 1
 
-
 logging:
   config:
-    classpath: log4j2.yaml
+    classpath: log4j2.xml
 
 
 #  jpa:
