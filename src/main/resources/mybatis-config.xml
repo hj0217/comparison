@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL" /> <!--쿼리 매핑 파마리터에 Null값이 있는 경우 에러 발생 방지-->
+        <setting name="mapUnderscoreToCamelCase" value="true" /> <!--DB 칼럼언더바를 카멜케이스로 치환해줌. -->
+        <setting name="logImpl" value="log4j2" />
+    </settings>
+
+    <typeAliases> <!--DTO 객체 별칭 -->
+        <typeAlias alias="Term" type="com.demo1.vo.Term" />
+        <typeAlias alias="TermDtl" type="com.demo1.vo.TermDtl" />
+        <typeAlias alias="PageInfo" type="com.demo1.vo.PageInfo" />
+    </typeAliases>
+</configuration>
