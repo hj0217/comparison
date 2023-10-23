@@ -1,6 +1,6 @@
 package com.demo1.controller;
 
-import com.demo1.domain.PageInfo;
+import com.demo1.vo.PageInfo;
 
 public class Pagination {
 

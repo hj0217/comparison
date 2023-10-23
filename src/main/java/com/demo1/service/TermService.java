@@ -1,10 +1,11 @@
 package com.demo1.service;
 
-import com.demo1.domain.Term;
-import com.demo1.mapper.TermDao;
+import com.demo1.vo.Term;
+import com.demo1.mapper.daoInterface.TermMapper;
+import com.demo1.vo.TermDtl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.demo1.domain.PageInfo;
+import com.demo1.vo.PageInfo;
 
 import java.util.*;
 
@@ -13,45 +14,27 @@ import java.util.*;
 @RequiredArgsConstructor
 public class TermService {
 
-    //private final JdbcTermRepository jdbcTermRepository;
+    final private TermMapper termMapper;
 
-
-    //private SqlSessionTemplate sqlSessionTemplate;
-
-    private final TermDao termDao;
-
-//    @Autowired
-//    public TermService (TermMapper termMapper){
-//        this.termMapper = termMapper;
-//    }
 
     /*--------------------------- 게시글  수 카운트--------------------------*/
     public int listCount() {
-        return termDao.listCount();
+        return termMapper.listCount();
     }
 
    /*----------------------------게시글 전체 조회 ---------------------------*/
     public List<Term> findAll(PageInfo pi) {
-
-        return termDao.findAll(pi);
+        return termMapper.findAll(pi);
     }
 
-//    public List<Term> findAll(int offset, int boardLimit) {
-//        Map<String, Integer> paramMap = new HashMap<>();
-//        paramMap.put("offset", boardLimit);
-//        paramMap.put("boardLimit", boardLimit);
-//
-//        return termDao.findAll(paramMap);
-//    }
+    /*-------------------------상세페이지-------------------------------------*/
+    public Term findOne(int no) {
+        return termMapper.findOne(no);
+    }
 
-//    /*-------------------------상세페이지-------------------------------------*/
-//    public Term findOne(int no) {
-//        return jdbcTermRepository.findOne(sqlSessionTemplate, no);
-//    }
-//
-//    public List<TermDtl> findConts(int no) {
-//        return jdbcTermRepository.findConts(sqlSessionTemplate, no);
-//    }
+    public List<TermDtl> findConts(int no) {
+        return termMapper.findConts(no);
+    }
 //
 //    /*------------------------------ 검색 ------------------------------------*/
 //    public List<Term> search(Term term, String category) {

@@ -17,9 +17,11 @@ spring:
       connection-test-query: select * from information_schema.tables limit 1
 
 logging:
-  config:
-    classpath: log4j2.xml
+  config: classpath:log4j2.xml
 
+# 테스트
+mybatis:
+  config-location: classpath:mybatis-config.xml
 
 #  jpa:
 #    show-sql: true

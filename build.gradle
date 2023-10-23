@@ -26,7 +26,9 @@ repositories {
 }
 
 dependencies {
+	//implementation'org.thymeleaf:thymeleaf:3.0.12.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation group: 'com.oracle.database.jdbc', name:'ojdbc6', version:'11.2.0.4'
@@ -41,11 +43,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.1'	// MyBatis
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
 	// Log4j2 라이브러리 추가
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.x.x'
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.x.x'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.2'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.2'
+
+
 }
 
 tasks.named('test') {

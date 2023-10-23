@@ -14,7 +14,7 @@
     <!--bootstrap-->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- date range picker  -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
 </head>
 <body>
 <div class="container">
@@ -33,8 +33,8 @@
 
             <div>
                 <span id="yn-option">필수여부</span>
-                <label for="yns"></label><input type="checkbox" id="yns"/>
-                <input type="hidden" id="_yns" name="yn" value="N"/>
+                <label for="yns"></label><input type="checkbox" id="yns">
+                <input type="hidden" id="_yns" name="yn" value="N">
             </div>
 
             <div>
@@ -46,15 +46,15 @@
                     <option value="수정일">수정일</option>
                 </select>
                 <label for="openToEnds"></label>
-                <input class="box" type="text" id="openToEnds" autocomplete="off" name="openToEnds" value="" />
-                <input type="hidden" id="startDateInputs" name="startDate" />
-                <input type="hidden" id="endDateInputs" name="endDate" />
+                <input class="box" type="text" id="openToEnds" autocomplete="off" name="openToEnds" value="">
+                <input type="hidden" id="startDateInputs" name="startDate">
+                <input type="hidden" id="endDateInputs" name="endDate">
             </div>
 
 
             <div class="float-center">
                 <div>
-                    <button type="button" onclick="$('#searchForm').submit()" >검색</button>
+                    <button type="button" onclick="$('#searchForm').submit()">검색</button>
                     <button type="reset">초기화</button>
                 </div>
             </div>
@@ -102,19 +102,18 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
 
-                <li class="page-item" th:classappend="${pi.getCurrentPage() <= pi.getStartPage()} ? 'disabled'" >
-                    <a class="page-link" th:href="@{'/terms/?' +'pageNum=' + ${pi.getCurrentPage()-1} +  '&boardLimit=' + ${pi.getBoardLimit()}}">Previous</a>
+                <li class="page-item" th:classappend="${pi.getCurrentPage() <= pi.getStartPage()} ? 'disabled'">
+                    <a class="page-link" th:href="@{'/terms/?' +'pageNum=' + ${pi.getCurrentPage()-1} +  '&amp;boardLimit=' + ${pi.getBoardLimit()}}">Previous</a>
                 </li>
 
              <th:block th:with=" start=${pi.getStartPage()}, end=${pi.getEndPage()}">
-                <li class="page-item" th:with="start =${pi.getStartPage()}, end=${pi.getEndPage()}"
-                                        th:each="piBtn : ${#numbers.sequence(start, end)}">
-                    <a class="page-link" th:href="@{'/terms/?' + 'pageNum=' + ${piBtn} + '&boardLimit=' + ${pi.getBoardLimit()}}" th:text="${piBtn}"></a>
+                <li class="page-item" th:with="start =${pi.getStartPage()}, end=${pi.getEndPage()}" th:each="piBtn : ${#numbers.sequence(start, end)}">
+                    <a class="page-link" th:href="@{'/terms/?' + 'pageNum=' + ${piBtn} + '&amp;boardLimit=' + ${pi.getBoardLimit()}}" th:text="${piBtn}"></a>
                 </li>
              </th:block>
 
                 <li class="page-item" th:classappend="${pi.getCurrentPage() >= pi.getEndPage()} ? 'disabled'">
-                    <a class="page-link" th:href="@{'/terms/?'+'pageNum=' +${pi.getCurrentPage()+1} + '&boardLimit=' + ${pi.getBoardLimit()}}">Next</a>
+                    <a class="page-link" th:href="@{'/terms/?'+'pageNum=' +${pi.getCurrentPage()+1} + '&amp;boardLimit=' + ${pi.getBoardLimit()}}">Next</a>
                 </li>
 
             </ul>

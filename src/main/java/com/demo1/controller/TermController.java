@@ -1,11 +1,10 @@
 package com.demo1.controller;
 
-import com.demo1.domain.PageInfo;
-import com.demo1.domain.Term;
+import com.demo1.vo.PageInfo;
+import com.demo1.vo.Term;
 import com.demo1.service.TermService;
+import com.demo1.vo.TermDtl;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +36,6 @@ public class TermController {
         PageInfo pageInfo = Pagination.getPageInfo(listCount, pageNum, pageLimit, boardLimit);
 
 
-
-        //List<Term> terms = termService.findAll(pageInfo);
         List<Term> terms = termService.findAll(pageInfo);
         model.addAttribute("terms", terms);
         model.addAttribute("pi", pageInfo);
@@ -65,24 +62,24 @@ public class TermController {
 //        return "home";
 //    }
 //
-//    /*------------------------------등록 페이지 & 상세 페이지--------------------------------------*/
-//    @GetMapping(value = {"/detail/" , "/detail/{strNo}"})
-//    public String detail(@PathVariable("strNo") Optional<String> strNo,
-//                         Model model) {
-//
-//        if(strNo.isPresent()) { // 상세페이지
-//            int no = Integer.parseInt(strNo.get());
-//            model.addAttribute("term", termService.findOne(no));
-//            model.addAttribute("list" ,termService.findConts(no));
-//            return "terms/detail";
-//
-//        } else { //등록 페이지
-//            model.addAttribute("term", null);
-//            model.addAttribute("list" , null);
-//            return "/terms/detail";
-//        }
-//    }
-//
+    /*------------------------------등록 페이지 & 상세 페이지--------------------------------------*/
+    @GetMapping(value = {"/detail/" , "/detail/{strNo}"})
+    public String detail(@PathVariable("strNo") Optional<String> strNo,
+                         Model model) {
+
+        if(strNo.isPresent()) { // 상세페이지
+            int no = Integer.parseInt(strNo.get());
+            model.addAttribute("term", termService.findOne(no));
+            model.addAttribute("list" ,termService.findConts(no));
+            return "terms/detail";
+
+        } else { //등록 페이지
+            model.addAttribute("term", null);
+            model.addAttribute("list" , null);
+            return "/terms/detail";
+        }
+    }
+
 //    /*--------------------------------------신규 등록 (ajax-form-serialize)----------------------------------------------*/
 //    @PostMapping(value = "/register")
 //    @ResponseBody
