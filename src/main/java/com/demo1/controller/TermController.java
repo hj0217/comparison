@@ -3,30 +3,31 @@ package com.demo1.controller;
 import com.demo1.vo.PageInfo;
 import com.demo1.vo.Term;
 import com.demo1.service.TermService;
-import com.demo1.vo.TermDtl;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
-@RequiredArgsConstructor
-@Controller @RequestMapping("/terms")
+
+@RestController
+@RequestMapping("/terms")
 public class TermController {
 
     private final TermService termService;
 
-//    @Autowired
-//    public TermController (TermService termService) {
-//        this.termService = termService;
-//    }
+    @Autowired
+    public TermController (TermService termService) {
+        this.termService = termService;
+    }
 
 
     /*--------------------------------메인페이지(BD데이터 List)----------------------------------------*/
     @GetMapping("/")
-    public String home(@RequestParam(value = "boardLimit", required=false, defaultValue = "30") int boardLimit,
-                       @RequestParam(value = "pageNum", required=false, defaultValue = "1") int pageNum,
-                       Model model) {
+    public ResponseEntity<Void> home(@RequestParam(value = "boardLimit", required=false, defaultValue = "30") int boardLimit,
+                               @RequestParam(value = "pageNum", required=false, defaultValue = "1") int pageNum,
+                               Model model) {
 
         //전체 게시글 구하기
         //int listCount = termService.listCount();
@@ -40,7 +41,7 @@ public class TermController {
         model.addAttribute("terms", terms);
         model.addAttribute("pi", pageInfo);
 
-        return "home";
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /*-----------------------------------------검색 search------------------------------------------------*/
@@ -80,10 +81,10 @@ public class TermController {
         }
     }
 
-//    /*--------------------------------------신규 등록 (ajax-form-serialize)----------------------------------------------*/
-//    @PostMapping(value = "/register")
-//    @ResponseBody
-//    public int register (@RequestBody Term term) {
-//        return termService.register(term);
-//    }
+    /*--------------------------------------신규 등록 (ajax-form-serialize)----------------------------------------------*/
+    @PostMapping(value = "/register")
+    @ResponseBody
+    public int register (@RequestBody Term term) {
+        return  termService.register(term);
+    }
 }

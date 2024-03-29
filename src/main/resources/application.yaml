@@ -1,29 +1,28 @@
 
+
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/xe
-    username: System
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost:9092/~/test
+    username: sa
     password: 1234
-    driver-class-name: oracle.jdbc.OracleDriver
-    type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5
       idle-timeout: 60000
       maximum-pool-size: 10
       auto-commit: true
       pool-name: HikariCorePool
-      max-lifetime: 1800000
+      max-lifetime: 180000
       connection-timeout: 30000
       connection-test-query: select * from information_schema.tables limit 1
 
-logging:
-  config: classpath:log4j2.xml
-
-# 테스트
 mybatis:
   config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:/mapper/*.xml
 
-#  jpa:
-#    show-sql: true
-#    hibernate.ddl-auto: none
-
+server:
+  port: 8080

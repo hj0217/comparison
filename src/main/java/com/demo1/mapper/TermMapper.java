@@ -1,12 +1,14 @@
-package com.demo1.mapper.daoInterface;
+package com.demo1.mapper;
 
 import com.demo1.vo.PageInfo;
 import com.demo1.vo.Term;
 import com.demo1.vo.TermDtl;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 
+@Mapper
 public interface TermMapper {
 
     //전체 검색
@@ -20,4 +22,7 @@ public interface TermMapper {
 
     //상세 페이지
     List<TermDtl> findConts(int no);
+
+    //등록 페이지
+    int register (Term term);
 }

@@ -7,9 +7,9 @@
         <setting name="logImpl" value="log4j2" />
     </settings>
 
-    <typeAliases> <!--DTO 객체 별칭 -->
-        <typeAlias alias="Term" type="com.demo1.vo.Term" />
-        <typeAlias alias="TermDtl" type="com.demo1.vo.TermDtl" />
-        <typeAlias alias="PageInfo" type="com.demo1.vo.PageInfo" />
-    </typeAliases>
+<!--    <typeAliases> &lt;!&ndash;DTO 객체 별칭 &ndash;&gt;-->
+<!--        <typeAlias alias="Term" type="com.demo1.vo.Term" />-->
+<!--        <typeAlias alias="TermDtl" type="com.demo1.vo.TermDtl" />-->
+<!--        <typeAlias alias="PageInfo" type="com.demo1.vo.PageInfo" />-->
+<!--    </typeAliases>-->
 </configuration>
