@@ -12,6 +12,24 @@ CREATE TABLE TERM_MST (
 
 CREATE TABLE TERM_DTL (
                           TERM_NO NUMBER(3),
-                          TERM_LANG VARCHAR2(9 CHAR) NOT NULL,
-                          TERM_CNT CLOB NOT NULL
+                          TERM_LANG VARCHAR(9) NOT NULL,
+                          TERM_CNT VARCHAR(9) NOT NULL
+);
+
+
+
+=============================================================================================================================
+
+CREATE TABLE Product (
+                          product_id bigint auto_increment,
+                          product_name VARCHAR(9) NOT NULL,
+                          product_price VARCHAR(9) NOT NULL
+);
+
+CREATE TABLE Product_history (
+                                 productHistoryId bigint auto_increment,
+                                 productId VARCHAR(9) NOT NULL,
+                                 historyType VARCHAR(9) NOT NULL,
+                                 historyReason VARCHAR(9) NOT NULL,
+                                 historyDetail VARCHAR(9) NOT NULL,
 );

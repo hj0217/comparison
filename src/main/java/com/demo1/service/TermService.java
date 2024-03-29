@@ -1,9 +1,9 @@
 package com.demo1.service;
 
 import com.demo1.vo.Term;
-import com.demo1.mapper.daoInterface.TermMapper;
+import com.demo1.mapper.TermMapper;
 import com.demo1.vo.TermDtl;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.demo1.vo.PageInfo;
 
@@ -11,11 +11,14 @@ import java.util.*;
 
 
 @Service
-@RequiredArgsConstructor
 public class TermService {
 
-    final private TermMapper termMapper;
+    private final TermMapper termMapper;
 
+    @Autowired
+    public TermService (TermMapper termMapper) {
+        this.termMapper = termMapper;
+    }
 
     /*--------------------------- 게시글  수 카운트--------------------------*/
     public int listCount() {
@@ -53,4 +56,10 @@ public class TermService {
 //        }
 //        return result;
 //    }
+
+    /*------------------------------ 등록  ------------------------------------*/
+    public int register(Term term) {
+        return termMapper.register(term);
+    }
+
 }

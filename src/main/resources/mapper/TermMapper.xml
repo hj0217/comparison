@@ -3,7 +3,7 @@
 
 
 <!--<mapper namespace="com.demo1.mapper">-->
-<mapper namespace="com.demo1.mapper.daoInterface.TermMapper">
+<mapper namespace="com.demo1.mapper.TermMapper">
     <resultMap id="term" type="com.demo1.vo.Term" >
         <result property="no" column="term_no" />
         <result property="type" column="term_type" />
