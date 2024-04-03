@@ -45,4 +45,13 @@ values (50,
         'ko',
         'This is the order-Agreement. (ver.En)');
 
-한글 주문동의서입니다
+
+
+/* PRODUCT 더미데이터*/
+INSERT INTO PRODUCT (product_name, product_price) VALUES ('블루티 세럼', '21000원');
+select * from product;
+
+
+/* PRODUCTHISTORY 더미데이터*/
+INSERT INTO PRODUCT_HISTORY (product_id, history_type) VALUES (#{productId}, #{historyType});
+select * from product_history;
