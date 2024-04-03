@@ -33,3 +33,5 @@ CREATE TABLE Product_history (
                                  historyReason VARCHAR(9) NOT NULL,
                                  historyDetail VARCHAR(9) NOT NULL,
 );
+
+DROP TABLE Product_history;
