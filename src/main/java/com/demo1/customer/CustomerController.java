@@ -1,11 +1,9 @@
 package com.demo1.customer;
 
 
+import com.demo1.customer.dto.BaseChangeHistory;
 import com.demo1.customer.dto.Customer;
-import com.demo1.customer.tracker.FieldComparison;
-import com.demo1.customer.tracker.HistoryDto;
-import com.demo1.customer.tracker.NumberCaptured;
-import com.demo1.customer.tracker.StringCaptured;
+import com.demo1.customer.tracker.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -41,7 +40,15 @@ public class CustomerController {
         //HistoryDto hd = new HistoryDto(); // DB히스토리 table에 넣어질 객체
 
         FieldComparison fieldComparison = new FieldComparison();
-        fieldComparison.comparison(asIs.getClass(), toBe.getClass());
+
+        // CompareColumnGroup을 가져오고 해당 그룹의 컬럼을 전달합니다.
+        CompareColumnGroup compareColumnGroup = CompareColumnGroup.MEMBER;
+        List<CompareColumn> compareColumnList = compareColumnGroup.getCompareColumnList();
+
+
+        // 변경 이력 데이터 생성
+        List<BaseChangeHistory> changeHistoryList = fieldComparison.createHistoryData(BaseChangeHistory.class, asIs, toBe, compareColumnList);
+        System.out.println("확인용:"+changeHistoryList.toString());
 
         //StringCaptured stringCaptured = new StringCaptured("성명", asIs.getName(), toBe.getName());
         //NumberCaptured numberCaptured = new NumberCaptured("나이", asIs.getAge(), toBe.getAge());

@@ -1,0 +1,141 @@
+package com.demo1.jsondiff;
+
+import com.demo1.jsondiff.nc.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.NullNode;
+
+import java.util.EnumSet;
+import java.util.Iterator;
+
+public final class JsonPatch {
+
+    private JsonPatch() {
+    }
+
+    private static JsonNode getPatchStringAttr(JsonNode jsonNode, String attr) {
+        JsonNode child = getPatchAttr(jsonNode, attr);
+
+        if (!child.isTextual())
+            throw new InvalidJsonPatchException("Invalid JSON Patch payload (non-text '" + attr + "' field)");
+
+        return child;
+    }
+
+    private static JsonNode getPatchAttr(JsonNode jsonNode, String attr) {
+        JsonNode child = jsonNode.get(attr);
+        if (child == null)
+            throw new InvalidJsonPatchException("Invalid JSON Patch payload (missing '" + attr + "' field)");
+
+        return child;
+    }
+
+    private static JsonNode getPatchAttrWithDefault(JsonNode jsonNode, String attr, JsonNode defaultValue) {
+        JsonNode child = jsonNode.get(attr);
+        if (child == null)
+            return defaultValue;
+        else
+            return child;
+    }
+
+    private static void process(JsonNode patch, JsonPatchProcessor processor, EnumSet<CompatibilityFlags> flags)
+            throws InvalidJsonPatchException {
+
+        if (!patch.isArray())
+            throw new InvalidJsonPatchException("Invalid JSON Patch payload (not an array)");
+        Iterator<JsonNode> operations = patch.iterator();
+        while (operations.hasNext()) {
+            JsonNode jsonNode = operations.next();
+            if (!jsonNode.isObject()) throw new InvalidJsonPatchException("Invalid JSON Patch payload (not an object)");
+            Operation operation = Operation.fromRfcName(getPatchStringAttr(jsonNode, Constants.OP).textValue());
+            JsonPointer path = JsonPointer.parse(getPatchStringAttr(jsonNode, Constants.PATH).textValue());
+
+            try {
+                switch (operation) {
+                    case REMOVE: {
+                        JsonNode before = patch.at(path.toString());
+                        processor.remove(path, before);
+                        break;
+                    }
+
+                    case ADD: {
+                        JsonNode value;
+                        if (!flags.contains(CompatibilityFlags.MISSING_VALUES_AS_NULLS))
+                            value = getPatchAttr(jsonNode, Constants.VALUE);
+                        else
+                            value = getPatchAttrWithDefault(jsonNode, Constants.VALUE, NullNode.getInstance());
+                        processor.add(path, value.deepCopy());
+                        break;
+                    }
+
+                    case REPLACE: {
+                        JsonNode value;
+                        JsonNode before = patch.at(path.toString());
+
+                        if (!flags.contains(CompatibilityFlags.MISSING_VALUES_AS_NULLS)) {
+                            value = getPatchAttr(jsonNode, Constants.VALUE);
+                            processor.replace(path, value.deepCopy(), before.deepCopy()); // 추가된 부분
+                        }
+                        else {
+                            value = getPatchAttrWithDefault(jsonNode, Constants.VALUE, NullNode.getInstance());
+                            processor.replace(path, value.deepCopy(), before.deepCopy()); // 추가된 부분
+                        }
+
+                        break;
+                    }
+
+                    case MOVE: {
+                        JsonPointer fromPath = JsonPointer.parse(getPatchStringAttr(jsonNode, Constants.FROM).textValue());
+                        processor.move(fromPath, path);
+                        break;
+                    }
+
+                    case COPY: {
+                        JsonPointer fromPath = JsonPointer.parse(getPatchStringAttr(jsonNode, Constants.FROM).textValue());
+                        processor.copy(fromPath, path);
+                        break;
+                    }
+
+                    case TEST: {
+                        JsonNode value;
+                        if (!flags.contains(CompatibilityFlags.MISSING_VALUES_AS_NULLS))
+                            value = getPatchAttr(jsonNode, Constants.VALUE);
+                        else
+                            value = getPatchAttrWithDefault(jsonNode, Constants.VALUE, NullNode.getInstance());
+                        processor.test(path, value.deepCopy());
+                        break;
+                    }
+                }
+            }
+            catch (JsonPointerEvaluationException e) {
+                throw new JsonPatchApplicationException(e.getMessage(), operation, e.getPath());
+            }
+        }
+    }
+
+    public static void validate(JsonNode patch, EnumSet<CompatibilityFlags> flags) throws InvalidJsonPatchException {
+        process(patch, NoopProcessor.INSTANCE, flags);
+    }
+
+    public static void validate(JsonNode patch) throws InvalidJsonPatchException {
+        validate(patch, CompatibilityFlags.defaults());
+    }
+
+    public static JsonNode apply(JsonNode patch, JsonNode source, EnumSet<CompatibilityFlags> flags) throws JsonPatchApplicationException {
+        CopyingApplyProcessor processor = new CopyingApplyProcessor(source, flags);
+        process(patch, processor, flags);
+        return processor.result();
+    }
+
+    public static JsonNode apply(JsonNode patch, JsonNode source) throws JsonPatchApplicationException {
+        return apply(patch, source, CompatibilityFlags.defaults());
+    }
+
+    public static void applyInPlace(JsonNode patch, JsonNode source) {
+        applyInPlace(patch, source, CompatibilityFlags.defaults());
+    }
+
+    public static void applyInPlace(JsonNode patch, JsonNode source, EnumSet<CompatibilityFlags> flags) {
+        InPlaceApplyProcessor processor = new InPlaceApplyProcessor(source, flags);
+        process(patch, processor, flags);
+    }
+}
