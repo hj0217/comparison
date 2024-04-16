@@ -52,8 +52,7 @@ public final class JsonPatch {
             try {
                 switch (operation) {
                     case REMOVE: {
-                        JsonNode before = patch.at(path.toString());
-                        processor.remove(path, before);
+                        processor.remove(path);
                         break;
                     }
 
@@ -69,17 +68,12 @@ public final class JsonPatch {
 
                     case REPLACE: {
                         JsonNode value;
-                        JsonNode before = patch.at(path.toString());
-
-                        if (!flags.contains(CompatibilityFlags.MISSING_VALUES_AS_NULLS)) {
+                        if (!flags.contains(CompatibilityFlags.MISSING_VALUES_AS_NULLS))
                             value = getPatchAttr(jsonNode, Constants.VALUE);
-                            processor.replace(path, value.deepCopy(), before.deepCopy()); // 추가된 부분
-                        }
-                        else {
-                            value = getPatchAttrWithDefault(jsonNode, Constants.VALUE, NullNode.getInstance());
-                            processor.replace(path, value.deepCopy(), before.deepCopy()); // 추가된 부분
-                        }
 
+                        else
+                            value = getPatchAttrWithDefault(jsonNode, Constants.VALUE, NullNode.getInstance());
+                        processor.replace(path, value.deepCopy());
                         break;
                     }
 

@@ -79,6 +79,6 @@ public enum DiffFlags {
     }
 
     public static EnumSet<DiffFlags> dontNormalizeOpIntoMoveAndCopy() {
-        return EnumSet.of(OMIT_MOVE_OPERATION, OMIT_COPY_OPERATION);
+        return EnumSet.of(OMIT_MOVE_OPERATION, OMIT_COPY_OPERATION, ADD_ORIGINAL_VALUE_ON_REPLACE);
     }
 }

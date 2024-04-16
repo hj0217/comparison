@@ -1,3 +1,19 @@
+/*
+ * Copyright 2016 flipkart.com zjsonpatch.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.demo1.jsondiff;
 
 import com.demo1.jsondiff.nc.DiffFlags;
@@ -9,8 +25,17 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.collections4.ListUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * User: gopi.vishwakarma
+ * Date: 30/07/14
+ */
 public final class JsonDiff {
 
     private final List<Diff> diffs = new ArrayList<Diff>();
@@ -21,7 +46,7 @@ public final class JsonDiff {
     }
 
     public static JsonNode asJson(final JsonNode source, final JsonNode target) {
-        return asJson(source, target, DiffFlags.defaults());
+        return asJson(source, target, DiffFlags.dontNormalizeOpIntoMoveAndCopy());
     }
 
     public static JsonNode asJson(final JsonNode source, final JsonNode target, EnumSet<DiffFlags> flags) {
@@ -306,27 +331,22 @@ public final class JsonDiff {
 
             case REMOVE:
                 jsonNode.put(Constants.PATH, diff.getPath().toString());
-                //if (!flags.contains(DiffFlags.OMIT_VALUE_ON_REMOVE)){
+                if (!flags.contains(DiffFlags.OMIT_VALUE_ON_REMOVE))
                     jsonNode.set(Constants.FROM, diff.getValue());
-                    //jsonNode.set(Constants.FROM_VALUE, diff.getSrcValue());
-                //}
                 break;
 
+            case REPLACE:
+                jsonNode.put(Constants.PATH, diff.getPath().toString());
+                if (flags.contains(DiffFlags.ADD_ORIGINAL_VALUE_ON_REPLACE)) {
+                    jsonNode.set(Constants.FROM, diff.getSrcValue());
+                    jsonNode.set(Constants.VALUE, diff.getValue());//변경
+                }
+                break;
+//
             case ADD:
             case TEST:
                 jsonNode.put(Constants.PATH, diff.getPath().toString());
                 jsonNode.set(Constants.VALUE, diff.getValue());
-                break;
-
-            case REPLACE:
-                if (flags.contains(DiffFlags.ADD_ORIGINAL_VALUE_ON_REPLACE)) {
-                    jsonNode.put(Constants.PATH, diff.getPath().toString());
-                    jsonNode.set(Constants.VALUE, diff.getValue());// 추가된 부분 //after
-                } else {
-                    jsonNode.put(Constants.PATH, diff.getPath().toString());
-                    jsonNode.set(Constants.FROM, diff.getSrcValue());// 추가된 부분 //before
-                    jsonNode.set(Constants.VALUE, diff.getValue());// 추가된 부분 //after
-                }
                 break;
 
             default:

@@ -9,8 +9,8 @@ public class NoopProcessor implements JsonPatchProcessor {
         INSTANCE = new NoopProcessor();
     }
 
-    @Override public void remove(JsonPointer path, JsonNode before) {}
-    @Override public void replace(JsonPointer path, JsonNode value, JsonNode before) {}
+    @Override public void remove(JsonPointer path) {}
+    @Override public void replace(JsonPointer path, JsonNode value) {}
     @Override public void add(JsonPointer path, JsonNode value) {}
     @Override public void move(JsonPointer fromPath, JsonPointer toPath) {}
     @Override public void copy(JsonPointer fromPath, JsonPointer toPath) {}

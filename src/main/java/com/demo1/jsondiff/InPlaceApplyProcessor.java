@@ -12,7 +12,6 @@ import java.util.EnumSet;
 
 public class InPlaceApplyProcessor implements JsonPatchProcessor {
 
-    private JsonNode source;
     private JsonNode target;
     private EnumSet<CompatibilityFlags> flags;
 
@@ -32,6 +31,7 @@ public class InPlaceApplyProcessor implements JsonPatchProcessor {
     @Override
     public void move(JsonPointer fromPath, JsonPointer toPath) throws JsonPointerEvaluationException {
         JsonNode valueNode = fromPath.evaluate(target);
+        remove(fromPath);
         set(toPath, valueNode, Operation.MOVE);
     }
 
@@ -69,7 +69,7 @@ public class InPlaceApplyProcessor implements JsonPatchProcessor {
 
 
     @Override
-    public void replace(JsonPointer path, JsonNode value, JsonNode before) throws JsonPointerEvaluationException { // 추가된 부분 JsonNode from_value
+    public void replace(JsonPointer path, JsonNode value) throws JsonPointerEvaluationException { // 추가된 부분 JsonNode from_value
         if (path.isRoot()) {
             target = value;
             return;
@@ -94,7 +94,7 @@ public class InPlaceApplyProcessor implements JsonPatchProcessor {
         }
     }
 
-    public void remove(JsonPointer path, JsonNode before) throws JsonPointerEvaluationException {
+    public void remove(JsonPointer path) throws JsonPointerEvaluationException {
         if (path.isRoot())
             throw new JsonPatchApplicationException("Cannot remove document root", Operation.REMOVE, path);
 

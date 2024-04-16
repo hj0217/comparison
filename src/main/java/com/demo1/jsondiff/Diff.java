@@ -10,7 +10,7 @@ public class Diff {
     private final JsonNode srcValue; // only used in replace operation
 
 
-    Diff(Operation operation, JsonPointer path, JsonNode value) {
+    public Diff(Operation operation, JsonPointer path, JsonNode value) {
         this.operation = operation;
         this.path = path;
         this.value = value;
