@@ -78,6 +78,10 @@ public enum DiffFlags {
         return EnumSet.of(OMIT_VALUE_ON_REMOVE);
     }
 
+    /**
+     * MOVE & COPY 기능 off
+     * REPLACE 기능 시 오리지널값을 추가하는 옵션 on
+     */
     public static EnumSet<DiffFlags> dontNormalizeOpIntoMoveAndCopy() {
         return EnumSet.of(OMIT_MOVE_OPERATION, OMIT_COPY_OPERATION, ADD_ORIGINAL_VALUE_ON_REPLACE);
     }

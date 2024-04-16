@@ -332,14 +332,14 @@ public final class JsonDiff {
             case REMOVE:
                 jsonNode.put(Constants.PATH, diff.getPath().toString());
                 if (!flags.contains(DiffFlags.OMIT_VALUE_ON_REMOVE))
-                    jsonNode.set(Constants.FROM, diff.getValue());
+                    jsonNode.set(Constants.FROM, diff.getValue()); // 변경 Constants.VALUE => FROM
                 break;
 
             case REPLACE:
                 jsonNode.put(Constants.PATH, diff.getPath().toString());
                 if (flags.contains(DiffFlags.ADD_ORIGINAL_VALUE_ON_REPLACE)) {
-                    jsonNode.set(Constants.FROM, diff.getSrcValue());
-                    jsonNode.set(Constants.VALUE, diff.getValue());//변경
+                    jsonNode.set(Constants.VALUE, diff.getValue());
+                    jsonNode.set(Constants.FROM, diff.getSrcValue()); // 추가
                 }
                 break;
 //
