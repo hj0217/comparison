@@ -1,6 +1,6 @@
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
-import com.demo1.jsondiff.nc.*;
+import com.demo1.jsondiff.lib.nc.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 

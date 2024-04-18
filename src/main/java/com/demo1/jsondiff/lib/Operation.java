@@ -1,6 +1,6 @@
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
-import com.demo1.jsondiff.nc.InvalidJsonPatchException;
+import com.demo1.jsondiff.lib.nc.InvalidJsonPatchException;
 
 import java.util.Collections;
 import java.util.HashMap;

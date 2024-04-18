@@ -1,4 +1,4 @@
-package com.demo1.jsondiff.member;
+package com.demo1.commonDto;
 
 import lombok.*;
 
@@ -8,5 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
+    private int id;
     private String role;
 }

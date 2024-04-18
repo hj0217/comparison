@@ -1,7 +1,7 @@
-package com.demo1.jsondiff.nc;
+package com.demo1.jsondiff.lib.nc;
 
-import com.demo1.jsondiff.JsonPointer;
-import com.demo1.jsondiff.Operation;
+import com.demo1.jsondiff.lib.JsonPointer;
+import com.demo1.jsondiff.lib.Operation;
 
 public class JsonPatchApplicationException extends RuntimeException{
     final Operation operation;

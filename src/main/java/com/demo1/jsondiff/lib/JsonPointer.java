@@ -1,6 +1,6 @@
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
-import com.demo1.jsondiff.nc.JsonPointerEvaluationException;
+import com.demo1.jsondiff.lib.nc.JsonPointerEvaluationException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;

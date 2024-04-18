@@ -1,4 +1,4 @@
-package com.demo1.jsondiff.member;
+package com.demo1.commonDto;
 
 
 import lombok.*;
@@ -25,4 +25,6 @@ public class Member {
     private List<Role> roles;
 
     private Member parent;
+
+    private Member grandParent;
 }

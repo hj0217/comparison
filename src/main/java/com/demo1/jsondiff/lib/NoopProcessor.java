@@ -1,6 +1,6 @@
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
-import com.demo1.jsondiff.nc.JsonPatchProcessor;
+import com.demo1.jsondiff.lib.nc.JsonPatchProcessor;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class NoopProcessor implements JsonPatchProcessor {

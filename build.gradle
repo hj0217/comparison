@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	//runtimeOnly 'com.h2database:h2'
 	implementation group: 'com.oracle.database.jdbc', name:'ojdbc6', version:'11.2.0.4'
+	implementation 'org.jetbrains:annotations:24.0.0'
 	runtimeOnly  'com.oracle.database.jdbc:ojdbc6'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -46,8 +47,11 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
 	implementation 'org.apache.commons:commons-lang3'
 
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
-	implementation 'org.apache.commons:commons-collections4:4.4'
+
+	implementation 'org.apache.commons:commons-collections4:4.4' // jsonDiff 일부 구현부 위함.
+
+	//guava-mapdifference
+	implementation("com.google.guava:guava:33.1.0-jre")
 
 }
 

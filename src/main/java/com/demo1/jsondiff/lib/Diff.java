@@ -1,4 +1,4 @@
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

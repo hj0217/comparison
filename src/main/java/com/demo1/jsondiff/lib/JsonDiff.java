@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
-import com.demo1.jsondiff.nc.DiffFlags;
-import com.demo1.jsondiff.nc.InternalUtils;
-import com.demo1.jsondiff.nc.NodeType;
+import com.demo1.jsondiff.lib.nc.DiffFlags;
+import com.demo1.jsondiff.lib.nc.InternalUtils;
+import com.demo1.jsondiff.lib.nc.NodeType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;

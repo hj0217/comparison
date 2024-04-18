@@ -1,4 +1,4 @@
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
 final class Constants {
     public static final String OP = "op";

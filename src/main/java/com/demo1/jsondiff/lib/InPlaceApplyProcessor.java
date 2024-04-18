@@ -1,9 +1,9 @@
-package com.demo1.jsondiff;
+package com.demo1.jsondiff.lib;
 
-import com.demo1.jsondiff.nc.CompatibilityFlags;
-import com.demo1.jsondiff.nc.JsonPatchApplicationException;
-import com.demo1.jsondiff.nc.JsonPatchProcessor;
-import com.demo1.jsondiff.nc.JsonPointerEvaluationException;
+import com.demo1.jsondiff.lib.nc.CompatibilityFlags;
+import com.demo1.jsondiff.lib.nc.JsonPatchApplicationException;
+import com.demo1.jsondiff.lib.nc.JsonPatchProcessor;
+import com.demo1.jsondiff.lib.nc.JsonPointerEvaluationException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;

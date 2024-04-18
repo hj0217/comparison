@@ -1,4 +1,4 @@
-package com.demo1.jsondiff.nc;
+package com.demo1.jsondiff.lib.nc;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;

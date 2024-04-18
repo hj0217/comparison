@@ -1,6 +1,6 @@
-package com.demo1.jsondiff.nc;
+package com.demo1.jsondiff.lib.nc;
 
-import com.demo1.jsondiff.Operation;
+import com.demo1.jsondiff.lib.Operation;
 
 import java.util.EnumSet;
 
