@@ -3,6 +3,7 @@ package com.demo1.commonDto;
 
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -27,4 +28,7 @@ public class Member {
     private Member parent;
 
     private Member grandParent;
+
+    private String date;
+
 }

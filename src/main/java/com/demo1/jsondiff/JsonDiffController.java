@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/jsonDiff")
 public class JsonDiffController {
 
     @GetMapping("update")

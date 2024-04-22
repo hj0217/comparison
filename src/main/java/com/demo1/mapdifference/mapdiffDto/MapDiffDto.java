@@ -3,6 +3,8 @@ package com.demo1.mapdifference.mapdiffDto;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Data
 @ToString
 public class MapDiffDto {
@@ -11,6 +13,6 @@ public class MapDiffDto {
     private String path;
     private Object before; // left value
     private Object after;  // right value
-
 }
+
 
