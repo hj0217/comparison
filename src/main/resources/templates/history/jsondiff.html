@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>historyDetail</title>
+</head>
+<body>
+<div>
+    <h2>하이루</h2>
+    <th:block th:if="${jsondiffDto != null}">
+        <table style="border: 1px solid black;">
+            <tr>
+<!--                <th scope="col" style="border: 1px solid black;">No</th>-->
+                <th scope="col" style="border: 1px solid black;">구분</th>
+                <th scope="col" style="border: 1px solid black;">필드명</th>
+                <th scope="col" style="border: 1px solid black;">변경 전</th>
+                <th scope="col" style="border: 1px solid black;">변경 후</th>
+            </tr>
+            <th:block th:each="item : ${jsondiffDto}">
+                    <tr>
+<!--                        <td th:text="${jsondiffDto.getIndex()}" style="border: 1px solid black;">no</td>-->
+                        <td th:text="${item.getOp()}" style="border: 1px solid black;">구분</td>
+                        <td th:text="${item.getPath()}" style="border: 1px solid black;">필드명</td>
+                        <td th:text="${item.getBefore()}" style="border: 1px solid black;">전</td>
+                        <td th:text="${item.getAfter()}" style="border: 1px solid black;">후</td>
+                    </tr>
+            </th:block>
+        </table>
+    </th:block>
+</div>
+</body>
+</html>
