@@ -53,6 +53,8 @@ dependencies {
 	//guava-mapdifference
 	implementation("com.google.guava:guava:33.1.0-jre")
 
+	//이메일
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.2.1'
 }
 
 tasks.named('test') {

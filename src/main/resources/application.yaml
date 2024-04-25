@@ -5,6 +5,20 @@ spring:
 #    console:
 #      enabled: true
 #      path: /h2-console
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: utf-8
+    protocol: smtp
   datasource:
 #    driver-class-name: org.h2.Driver
 #    url: jdbc:h2:tcp://localhost:9092/~/test
@@ -29,6 +43,10 @@ spring:
       enabled: false
   thymeleaf:
     cache: false
+    check-template-location: true
+    suffix: .html
+    mode: HTML5
+    template-resolver-order: 0
 
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -36,3 +54,7 @@ mybatis:
 
 server:
   port: 8080
+
+
+
+

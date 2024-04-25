@@ -29,6 +29,4 @@ public class Member {
 
     private Member grandParent;
 
-    private String date;
-
 }
