@@ -1,5 +1,7 @@
 package com.demo1.sendEmail;
 
+import com.demo1.sendEmail.emailDto.MailDto;
+import com.demo1.sendEmail.emailDto.Template;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.List;
@@ -24,30 +27,49 @@ public class CustomMailSender {
     @Autowired
     private SpringTemplateEngine templateEngine;
 
+
+
     @PostMapping("/sendMail")
-    public void sendMail(@RequestParam String subject, @RequestParam String[] to
-                         //, List<Map<String, Object>> list
+    public void sendMail(//Template templateContent, List<MailDto> list
                          ) throws MessagingException, IOException {
 
+        //test 데이터(메일 내용)
+        Template template = Template.builder()
+                .senderName("김이니")
+                .text("This is the contents area. Please leave it as blank! <br> 이곳은 내용이 들어가는 공간입니다. 공백으로 남주세요.<br>")
+                .subject("제목 입력란")
+                .build();
+
+        List<MailDto> list = new ArrayList<>();
+        list.add(MailDto.builder()
+                .address("")
+                .name("이호갱")
+                .build());
+        list.add(MailDto.builder()
+                .address("")
+                .name("주복치")
+                .build());
+
         MimeMessage message = javaMailSender.createMimeMessage();
-        message.setSubject(subject, "utf-8");
 
-        // Test -> Param List으로 받기
-        Map<String, Object> templateModel = new HashMap<>();
-        templateModel.put("recipientName", "Mike");
-        templateModel.put("text", "This is the contents area. Please leave it as blank! 한글 끼워넣기");
-        templateModel.put("senderName", "Eugene Choi");
-        System.out.println("이메일 확인용");
 
-        //템플릿에 전달할 데이터 설정
-        Context context = new Context();
-        context.setVariables(templateModel);
+        // tset 발신인 리스트
+        for (MailDto dto : list) {
+            Map<String, Object> templateModel = new HashMap<>();
+            templateModel.put("recipientName", dto.getName());
+            templateModel.put("text", template.getText());
+            templateModel.put("senderName", template.getSenderName());
 
-        //템플릿 프로세스
-        String htmlBody = templateEngine.process("mail/email",context);;
+            //템플릿에 전달할 데이터 설정
+            Context context = new Context();
+            context.setVariables(templateModel);
 
-        //메일 보내기
-        sendHtmlMessage(to[0], subject, htmlBody);
+            //템플릿 프로세스
+            String htmlBody = templateEngine.process("mail/email",context);;
+
+            //메일 보내기
+            sendHtmlMessage(dto.getAddress(), template.getSubject(), htmlBody);
+        }
     }
 
 
