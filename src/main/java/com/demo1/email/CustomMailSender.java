@@ -31,11 +31,11 @@ public class CustomMailSender {
     private List<MailDto> list () {
         List<MailDto> list = new ArrayList<>();
         list.add(MailDto.builder()
-                .address("youakdl@naver.com")
+                .address("@naver.com")
                 .name("이호갱")
                 .build());
         list.add(MailDto.builder()
-                .address("youakdl1@naver.com")
+                .address("@naver.com")
                 .name("주복치")
                 .build());
         return  list;
