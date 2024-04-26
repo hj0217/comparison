@@ -1,4 +1,4 @@
-package com.demo1.sendEmail.emailDto;
+package com.demo1.email.emailDto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class Template {
     private String subject;
-    private String text;
+    private String contents;
     private String senderName;
 
 }

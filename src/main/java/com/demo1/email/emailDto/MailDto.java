@@ -1,4 +1,4 @@
-package com.demo1.sendEmail.emailDto;
+package com.demo1.email.emailDto;
 
 import lombok.*;
 

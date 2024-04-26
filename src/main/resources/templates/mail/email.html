@@ -6,10 +6,12 @@
 <body>
 
 <p th:text="#{greetings} + ${recipientName}"></p>
-<p th:text="${text}"></p>
+<p th:text="${contents}"></p>
 <p th:text="#{regards}"></p>
+<!--<p th:text="${senderName}"></p>--><!--DTO에서 전달해주지만 받을 곳이 없으면? : 에러 없음-->
 <p th:text="#{signature} + ${senderName}"></p>
-
+<p th:text="${signature22}"></p><!--Dto에 없는 값 : 출력이 안됨-->
 
 </body>
 </html>
+
