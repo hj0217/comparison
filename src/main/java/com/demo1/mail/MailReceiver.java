@@ -1,12 +1,14 @@
-package com.demo1.email;
+package com.demo1.mail;
 
-import lombok.Data;
+import lombok.*;
 
 /*
 *  메일 수신자 정보
 *
 * */
 @Data
+@Builder
+@AllArgsConstructor
 public class MailReceiver {
 
     private String receiverEmail;

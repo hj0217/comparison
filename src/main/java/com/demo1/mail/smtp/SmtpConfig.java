@@ -1,8 +1,8 @@
-package com.demo1.email.smtp;
+package com.demo1.mail.smtp;
 
-import com.demo1.email.AbstractMailBuilder;
-import com.demo1.email.Mail;
-import com.demo1.email.MailBuilder;
+import com.demo1.mail.AbstractMailBuilder;
+import com.demo1.mail.Mail;
+import com.demo1.mail.MailBuilder;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,8 +25,8 @@ public class SmtpConfig {
         @Override
         public Mail build(MailBuilder builder) {
             SmtpMail mail = new SmtpMail();
-            mail.setSubject(builder.getTitle());
-            mail.setContent(builder.getTitle());
+            mail.setTitle(builder.getTitle());
+            mail.setContent(builder.getContent());
             mail.setReceiverList(builder.getReceivers());
             return mail;
         }

@@ -47,6 +47,11 @@ spring:
     suffix: .html
     mode: HTML5
     template-resolver-order: 0
+  freemarker:
+    suffix: .ftl
+    content-type: text/html
+    template-loader-path: classpath:/templates
+    cache: false
 
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -54,7 +59,6 @@ mybatis:
 
 server:
   port: 8080
-
 
 
 

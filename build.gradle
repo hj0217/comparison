@@ -26,6 +26,7 @@ dependencies {
 
 	//implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 	implementation 'org.springframework.boot:spring-boot-devtools:3.2.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
