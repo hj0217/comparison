@@ -81,33 +81,25 @@ public class JsonDiffController {
         JsonNode diffNode = JsonDiff.asJson(mapper.valueToTree(original), mapper.valueToTree(change));
 //        System.out.println(diffNode.toPrettyString());
 
-        //DB 저장
-        JsonNode diffArray = mapper.readTree(diffNode.toPrettyString());
-        //DB 클래스 타입 저장 i.g) com.demo1.commonDto.Member
-        Class<?> clazz = original.getClass();
 
+        JsonNode diffArray = mapper.readTree(diffNode.toPrettyString()); //DB 저장
+        Class<?> clazz = original.getClass(); //DB 클래스Type 저장 i.g) com.demo1.commonDto.Member
 
 
         List<DiffDto> jsondiffDtoList = new ArrayList<>(); // Json배열 담을 리스트
 
-
-
-
-
         for (JsonNode node : diffArray) {
             DiffDto dto = new DiffDto();
             dto.setOp(Category.fromValue(node.get("op").asText()));
-            //dto.setPath(node.get("path").asText());
+            //dto.setPath(node.get("path").asText()); // 기존 코드 i.g) /email, /parent/email
 
             /*
              * 테스트중
              */
-            String path = node.get("path").asText(); //path 벨류로 클래스 필드 검사진행
-System.out.println(path);
-            for (Field field : clazz.getDeclaredFields()) { // 클래스 정의의 모든 필드를 반복하여 검사합니다.
-
-                if (path.toLowerCase().contains(field.getName())) {
-                    ApiModelProperty apiModelProperty = field.getAnnotation(ApiModelProperty.class);  // 필드에서 Swagger 어노테션 찾기 (예: @ApiModelProperty)
+            String path = node.get("path").asText();
+            for (Field field : clazz.getDeclaredFields()) { // 클래스 정의의 모든필드를 반복 검사
+                if (path.toLowerCase().contains(field.getName())) { //path값 == 필드이름 경우
+                    ApiModelProperty apiModelProperty = field.getAnnotation(ApiModelProperty.class);  // 해당필드 annotation값 가져오기
                     dto.setPath(apiModelProperty.value());
                 }
             }
