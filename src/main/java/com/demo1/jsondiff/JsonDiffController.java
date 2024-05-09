@@ -7,12 +7,14 @@ import com.demo1.jsondiff.jsondiffDto.DiffDto;
 import com.demo1.jsondiff.lib.JsonDiff;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +23,10 @@ import java.util.List;
 public class JsonDiffController {
 
     @GetMapping("update")
-    public String updateMemberInformation(//@RequestParam Member updateMemberDto,
-                                           Model model) throws IOException {
+    public String updateInformation(//@RequestParam Member updateMemberDto,
+                                           Model model) throws IOException, ClassNotFoundException {
         Member original = Member.builder()
-                .id(101)
-                .email("inn@innisfree.com")
+                .id(101).email("inn@innisfree.com")
                 .password("innpassword")
                 .role(Role.builder()
                         .id(1)
@@ -77,22 +78,44 @@ public class JsonDiffController {
                 .build();
 
         ObjectMapper mapper = new ObjectMapper();
-
-
         JsonNode diffNode = JsonDiff.asJson(mapper.valueToTree(original), mapper.valueToTree(change));
 //        System.out.println(diffNode.toPrettyString());
 
         //DB 저장
         JsonNode diffArray = mapper.readTree(diffNode.toPrettyString());
-//System.out.println(diffArray);
+        //DB 클래스 타입 저장 i.g) com.demo1.commonDto.Member
+        Class<?> clazz = original.getClass();
+
+
 
         List<DiffDto> jsondiffDtoList = new ArrayList<>(); // Json배열 담을 리스트
 
+
+
+
+
         for (JsonNode node : diffArray) {
             DiffDto dto = new DiffDto();
-
             dto.setOp(Category.fromValue(node.get("op").asText()));
-            dto.setPath(node.get("path").asText());
+            //dto.setPath(node.get("path").asText());
+
+            /*
+             * 테스트중
+             */
+            String path = node.get("path").asText(); //path 벨류로 클래스 필드 검사진행
+System.out.println(path);
+            for (Field field : clazz.getDeclaredFields()) { // 클래스 정의의 모든 필드를 반복하여 검사합니다.
+
+                if (path.toLowerCase().contains(field.getName())) {
+                    ApiModelProperty apiModelProperty = field.getAnnotation(ApiModelProperty.class);  // 필드에서 Swagger 어노테션 찾기 (예: @ApiModelProperty)
+                    dto.setPath(apiModelProperty.value());
+                }
+            }
+
+            /*
+             * end of 테스트
+             */
+
             JsonNode beforeNode = node.get("before");
             if (beforeNode != null) {
                 if (beforeNode.isObject()) {
