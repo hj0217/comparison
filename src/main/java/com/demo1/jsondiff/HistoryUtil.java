@@ -13,9 +13,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 
-public class historyUtil {
+public class HistoryUtil {
 
-    public static List<DiffDto> checkDiff (Member updateMemberDto) throws IOException {
+    public static List<DiffDto> checkDiff (Member change) throws IOException {
+
         Member original = Member.builder()
                 .id(101).email("inn@innisfree.com")
                 .password("innpassword")
@@ -38,26 +39,6 @@ public class historyUtil {
                                 .role(Role.builder()
                                         .role("ROLE_MASTER")
                                         .build())
-                                .build())
-                        .build())
-                .build();
-
-        Member change = Member.builder()
-                .id(101)
-                .password("changedPassword")
-                .role(Role.builder()
-                        .role("ROLE_USER")
-                        .build())
-                .role(Role.builder()
-                        .role("ROLE_MASTER")
-                        .build())
-                .parent(Member.builder()
-                        .id(201)
-                        .email("changedInnep@innisfeeep.com")
-                        .password("epPASSWORD")
-                        .grandParent(Member.builder()
-                                .id(301)
-                                .password("chlwhdqhtlahq")
                                 .build())
                         .build())
                 .build();
@@ -109,7 +90,6 @@ public class historyUtil {
             }
             jsondiffDtoList.add(dto);
         }
-
         return jsondiffDtoList; // DB에 넣기
 
         /* predict
