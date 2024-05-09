@@ -13,8 +13,8 @@ import lombok.*;
 @JsonSubTypes.Type(value= Role.class, name = "role")
 public class Role {
 
-    @ApiModelProperty(value = "아이디")
-    private int id;
+    //@ApiModelProperty(value = "아이디")
+    //private int id;
     @ApiModelProperty(value = "역할")
     private String role;
 }

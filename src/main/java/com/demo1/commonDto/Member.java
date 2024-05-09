@@ -2,8 +2,6 @@ package com.demo1.commonDto;
 
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -14,7 +12,6 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-@JsonSubTypes.Type(value= Member.class, name = "member")
 public class Member {
     
     @ApiModelProperty(value = "아이디")
