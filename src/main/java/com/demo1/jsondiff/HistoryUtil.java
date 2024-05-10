@@ -47,7 +47,7 @@ public class HistoryUtil {
         JsonNode diffNode = JsonDiff.asJson(mapper.valueToTree(original), mapper.valueToTree(change));
 
         if (diffNode.isEmpty()) {
-            // ToDo 널 return 시, 받는 쪽에서 분기 필요
+            // ToDo 널 return 시, 받는 쪽에서 분기 필요한지?
             return null;
         } else {
 
@@ -76,9 +76,14 @@ public class HistoryUtil {
 
                 JsonNode beforeNode = node.get("before");
                 if (beforeNode != null) {
-                    if (beforeNode.isObject()) {
-                        dto.setBefore(beforeNode.toString());
-                    } else {
+                    if (beforeNode.isObject()) { //Array case
+                        StringBuilder beforeSb = new StringBuilder();
+                        for(int i = 0; i< beforeNode.size(); i++) {
+                            beforeSb.append(beforeNode.path("role").asText()); //Todo 배열 필드명 추출할 수 있는 방법 있을지?
+                            if(beforeNode.size() > 1) beforeSb.append(",");
+                        }
+                          dto.setBefore(beforeSb);
+                    } else { // String case
                         dto.setBefore(beforeNode.asText());
                     }
                 }
@@ -86,7 +91,12 @@ public class HistoryUtil {
                 JsonNode afterNode = node.get("after");
                 if (afterNode != null) {
                     if (afterNode.isObject()) {
-                        dto.setAfter(afterNode.toString());
+                        StringBuilder afterSb = new StringBuilder();
+                        for(int i = 0; i< afterNode.size(); i++) {
+                            afterSb.append(afterNode.path("role").asText());
+                            if(afterNode.size() > 1) afterSb.append(",");
+                        }
+                        dto.setAfter(afterSb);
 
                     } else {
                         dto.setAfter(afterNode.asText());
